@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senexus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #fff;
+        }
+        input[type="text"] {
+            max-width: 100%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+		#searchQuery {
+			margin-bottom: 10px;
+		}
+        button {
+            padding: 10px 15px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+			font-weight: bold;
+			text-transform: uppercase;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .results {
+            margin: 20px;
+        }
+        .result-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .result-item h3 {
+            margin: 0;
+            color: #007bff;
+        }
+        .result-item p {
+            margin: 5px 0;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 3;
+        }
+        .result-item a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .result-item a:hover {
+            text-decoration: underline;
+        }
+		.header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background-image: linear-gradient(13deg, #b81, #fd0);
+			padding: 10px;
+			flex-wrap: wrap;
+		}
+    </style>
+</head>
+<body>
+	<div class="header">
+		<h1>Senexus</h1>
+		<form>
+			<input name="q" type="text" id="searchQuery" placeholder="Enter your search term...">
+			<button id="searchButton">Search</button>
+		</form>
+	</div>
+
+    <div class="results" id="resultsContainer"></div>
+
+    <script>
+        // Function to get query parameters from the URL
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Function to perform search
+        function performSearch(query) {
+            fetch(`https://atinas.alreflections.net/search/api.php?type=service&q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    displayResults(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('resultsContainer').innerHTML = '<p>Error fetching results. Please try again.</p>';
+                });
+        }
+
+        // Function to display results
+        function displayResults(data) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = ''; // Clear previous results
+
+            if (data.length === 0) {
+                resultsContainer.innerHTML = '<p>No results found.</p>';
+                return;
+            }
+
+            data.forEach(item => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'result-item';
+                resultItem.innerHTML = `
+                    <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
+                    <p>${item.description}</p>
+                `;
+                resultsContainer.appendChild(resultItem);
+            });
+        }
+
+        // Event listener for the search button
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const query = document.getElementById('searchQuery').value;
+            if (query) {
+                performSearch(query);
+            } else {
+                alert('Please enter a search term.');
+            }
+        });
+
+        // Check for 'q' parameter in the URL and perform search
+        const queryParam = getQueryParameter('q');
+        if (queryParam) {
+            document.getElementById('searchQuery').value = queryParam; // Set the input value
+            performSearch(queryParam); // Perform search with the query
+        } else {
+            performSearch(''); // Perform search with an empty query
+        }
+    </script>
+
+</body>
+</html>
