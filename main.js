@@ -51,7 +51,7 @@ const type = params.get("type");
         });
 
         // Check for 'q' parameter in the URL and perform search
-        const queryParam = getQueryParameter('q');
+        const queryParam = getQueryParameter('q')||'a';
         if (queryParam) {
             document.getElementById('searchQuery').value = queryParam; // Set the input value
             performSearch(queryParam); // Perform search with the query
