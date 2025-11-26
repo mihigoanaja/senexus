@@ -1,3 +1,5 @@
+const params = new URL(import.meta.url).searchParams;
+const type = params.get("type");
 // Function to get query parameters from the URL
         function getQueryParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -6,7 +8,7 @@
 
         // Function to perform search
         function performSearch(query) {
-            fetch(`https://apiproxy.alreflections.net/atinas/search?type=service&q= ${encodeURIComponent(query)}`)
+            fetch(`https://apiproxy.alreflections.net/atinas/search?type=${type}&q= ${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
                     displayResults(data);
