@@ -108,9 +108,7 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-	<div id="footer"></div>
-	<script>var url="https://atinas.alreflections.net/api/aHR0cHM6Ly9vbmV0YWcucGFnZXMuZGV2L2FscmVmbGVjdGlvbnMtZm9vdGVyLmh0bWw=";fetch(url).then(r=>{var response=r;response.text().then(d=>{var data=d;footer.innerHTML=data;});});</script>
-
+	<script src="http://onetag.pages.dev/alreflections-footer.js"></script>
     <script>
         // Function to get query parameters from the URL
         function getQueryParameter(name) {
@@ -120,7 +118,7 @@
 
         // Function to perform search
         function performSearch(query) {
-            fetch(`https://atinas.alreflections.net/search/api.php?type=service&q=${encodeURIComponent(query)}`)
+            fetch(`https://apiproxy.alreflections.net/atinas/search?type=service&q=${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
                     displayResults(data);
