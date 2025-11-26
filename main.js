@@ -56,5 +56,5 @@ const type = params.get("type");
             document.getElementById('searchQuery').value = queryParam; // Set the input value
             performSearch(queryParam); // Perform search with the query
         } else {
-            performSearch(''); // Perform search with an empty query
+            performSearch('a'); // Perform search with an empty query
         }
