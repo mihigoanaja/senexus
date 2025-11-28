@@ -8,7 +8,7 @@ const type = params.get("type");
 
         // Function to perform search
         function performSearch(query) {
-            fetch(`https://apiproxy.alreflections.net/atinas/search?type=${type}&q= ${encodeURIComponent(query)}`)
+            fetch(`https://atinasapi.eranajam123.workers.dev/?type=${type}&q= ${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
                     displayResults(data);
