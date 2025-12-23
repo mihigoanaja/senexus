@@ -7,7 +7,7 @@ const type = params.get("type");
         }
 
         // Function to perform search
-        function performSearch(query) {
+        async function performSearch(query) {
             let renderer=await fetch("https://reserve.alreflections.net/json/atinas-apis.json");
             let apijson=await renderer.json();
             let apiurl=apijson[parseInt(Math.random()*(apijson.length))];
