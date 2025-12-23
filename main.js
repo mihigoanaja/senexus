@@ -8,7 +8,10 @@ const type = params.get("type");
 
         // Function to perform search
         function performSearch(query) {
-            fetch(`https://senexusapi.eranajam123.workers.dev/?type=${type}&q= ${encodeURIComponent(query)}`)
+            let renderer=await fetch("https://reserve.alreflections.net/json/atinas-apis.json");
+            let apijson=await renderer.json();
+            let apiurl=apijson[parseInt(Math.random()*(apijson.length))];
+            fetch(`${apiurl}?type=${type}&q= ${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
                     displayResults(data);
