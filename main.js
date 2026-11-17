@@ -18,7 +18,7 @@ const type = params.get("type");
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    document.getElementById('resultsContainer').innerHTML = '<p>Error fetching results. Please try again.</p>';
+                    //document.getElementById('resultsContainer').innerHTML = '<p>Error fetching results. Please try again.</p>';
                 });
         }
 
